@@ -31,7 +31,7 @@
                 <div class="card-header">
                     <div class="card-title">
                         <h1>
-                            Booking
+                            Booking plaatsen
                         </h1>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                             <input type="text" hidden placeholder="KlantID" value="5" name="KlantID" id="KlantID" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <input type="submit" value="Toevoegen" name="toevoegen" class="btn btn-success">
+                            <input type="submit" value="Maak Boeking" name="toevoegen" class="btn btn-success">
                             <input type="submit" value="Annuleer" name="Annuleer" class="btn btn-danger">
                         </div>
                     </form>
