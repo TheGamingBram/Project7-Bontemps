@@ -1,26 +1,63 @@
 <?php 
+    //voegt de benodigde bestanden toe
     include('Assets/Config.php');
-
     include('Assets/Header.php');
+    include('Assets/Checklogin.php');
 
+    //session start
+    session_start();
+    $_SESSION['HumanClass'] = '0';
+
+    //checkt of je een klant of medewerkerbent
+    if($_SESSION['HumanClass'] == '0')
+    {
+        $inhoudklant = '<input type="text" hidden placeholder="KlantID" value="5" name="KlantID" id="KlantID" class="form-control">';
+    }else
+    {
+        
+        $inhoudklant = '<label class="label" for="KlantenNaam">Klant</label>';
+        $inhoudklant .= '<input type="text" placeholder="Klanten Naam" name="KlantenNaam" id="KlantenNaam" class="form-control">';
+    }
+
+    //annuleert de ingevulde gegevens
     if(isset($_POST['Annuleer']))
 	{
 		header("location: booking.php");
 	}
 
+    //voegt de booking toe aan de database
 	if(isset($_POST['toevoegen']))
 	{
 		$Datum = $_POST['Datum'];
 		$AantalPesoonen = $_POST['AantalPersoonen'];
-		$KlantID = $_POST['KlantID'];
 		$TafelID = $_POST['TafelID'];
+
+        if($_SESSION['HumanClass'] == '0')
+        {
+		    $KlantID = $_POST['KlantID'];
+        }else
+        {
+		    $KlantenNaam = $_POST['KlantenNaam'];
+            $Queryklanten = "SELECT ID FROM klanten WHERE Naam = '$KlantenNaam'";
+            $resultklanten=$con->query($Queryklanten);
+            $varklanten = '';
+            if($stmt = mysqli_prepare($con, $Queryklanten)){
+               while($rowklanten = $resultklanten->fetch_assoc())
+               {
+                if($rowklanten != NULL)
+                {
+                    $KlantID = $rowklanten['ID'];
+                }
+               }
+            }
+        }
 
 		$QueryBooking = "INSERT INTO reserveringen (Datum, Aantal, Klanten_ID, Tafel_ID) 
 				VALUES ('$Datum', '$AantalPesoonen', '$KlantID', '$TafelID');";
 			mysqli_query($con, $QueryBooking);
 
-            prettyprint($QueryBooking);
-		// header("location: booking.php");
+            // prettyprint($QueryBooking);
+		header("location: booking.php");
 	}
 ?>
 
@@ -50,7 +87,7 @@
                             <input type="text" placeholder="Tafel" name="TafelID" id="TafelID" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <input type="text" hidden placeholder="KlantID" value="5" name="KlantID" id="KlantID" class="form-control">
+                            <?php echo $inhoudklant;?>
                         </div>
                         <div class="mb-3">
                             <input type="submit" value="Maak Boeking" name="toevoegen" class="btn btn-success">
