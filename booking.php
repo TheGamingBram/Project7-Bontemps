@@ -49,6 +49,7 @@
                     $KlantID = $rowklanten['ID'];
                 }
                }
+              // prettyprint($KlantID);
             }
         }
 
