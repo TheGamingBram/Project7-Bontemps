@@ -94,14 +94,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, .07);
 }
 
-.navbar .dropdown-toggle::after {
-    border: none;
-    content: "\f107";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    vertical-align: middle;
-    margin-left: 8px;
-}
+
 
 .navbar .navbar-nav .nav-link {
     padding: 25px 15px;
