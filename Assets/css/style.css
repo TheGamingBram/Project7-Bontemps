@@ -90,18 +90,18 @@
 }
 
 .top-bar {
-    height: 45px;
+    height: 45px !important;
     border-bottom: 1px solid rgba(0, 0, 0, .07);
 }
 
-.navbar .dropdown-toggle::after {
+/* .navbar .dropdown-toggle::after {
     border: none;
     content: "\f107";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     vertical-align: middle;
     margin-left: 8px;
-}
+} */
 
 .navbar .navbar-nav .nav-link {
     padding: 25px 15px;
@@ -127,7 +127,7 @@
     }
 }
 
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
     .navbar .nav-item .dropdown-menu {
         display: block;
         visibility: hidden;
@@ -144,11 +144,11 @@
         transition: .5s;
         opacity: 1;
     }
-}
+} */
 
 
 /*** Header ***/
-.carousel-caption {
+/* .carousel-caption {
     top: 0;
     left: 0;
     right: 0;
@@ -186,7 +186,7 @@
         height: 100%;
         object-fit: cover;
     }
-}
+} */
 
 .page-header {
     padding-top: 12rem;
@@ -381,4 +381,11 @@
 
 .footer .copyright a:hover {
     color: var(--primary);
+}
+
+.header-img{
+    width: 210px;
+    height: 100px;
+    background: url('../img/bontempslogo.png');
+    background-size: cover;
 }

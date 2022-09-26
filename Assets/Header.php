@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Bon Temps</title>
 
-    <link rel="icon" type="image/png" href="https://dynamic.indigoimages.ca//v1/gifts/gifts/882709738817/1.jpg?width=614&maxheight=614">
+    <link rel="icon" type="image/png" href="/img/bontempslogo.png">
 
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
 
