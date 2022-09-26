@@ -6,6 +6,7 @@
 
     //session start
     session_start();
+    //zegt of het een medewerker of een klant
     $_SESSION['HumanClass'] = '0';
 
     //checkt of je een klant of medewerkerbent
@@ -14,16 +15,9 @@
         $inhoudklant = '<input type="text" hidden placeholder="KlantID" value="5" name="KlantID" id="KlantID" class="form-control">';
     }else
     {
-        
         $inhoudklant = '<label class="label" for="KlantenNaam">Klant</label>';
-        $inhoudklant .= '<input type="text" placeholder="Klanten Naam" name="KlantenNaam" id="KlantenNaam" class="form-control">';
+        $inhoudklant .= '<input type="text" placeholder="Klanten Naam" name="KlantenNaam" id="KlantenNaam" class="form-control" required>';
     }
-
-    //annuleert de ingevulde gegevens
-    if(isset($_POST['Annuleer']))
-	{
-		header("location: booking.php");
-	}
 
     //voegt de booking toe aan de database
 	if(isset($_POST['toevoegen']))
@@ -92,7 +86,7 @@
                         </div>
                         <div class="mb-3">
                             <input type="submit" value="Maak Boeking" name="toevoegen" class="btn btn-success">
-                            <input type="submit" value="Annuleer" name="Annuleer" class="btn btn-danger">
+                            <input type="submit" value="Annuleer" name="Annuleer" class="btn btn-danger" onClick="document.location.href='index.php'">
                         </div>
                     </form>
                 </div>
