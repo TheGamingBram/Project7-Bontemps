@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Bon Temps</title>
 
-    <link rel="icon" type="image/png" href="/img/bontempslogo.png">
+    <link rel="icon" type="image/png" href="./Assets/img/bontempslogo.png">
 
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
 
