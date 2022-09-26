@@ -1,13 +1,16 @@
 <?php 
+    //voegt de benodigde bestanden toe
     include('Assets/Config.php');
-
     include('Assets/Header.php');
+    include('Assets/Checklogin.php');
 
+    //annuleert de ingevulde gegevens
     if(isset($_POST['Annuleer']))
 	{
 		header("location: booking.php");
 	}
 
+    //voegt de booking toe aan de database
 	if(isset($_POST['toevoegen']))
 	{
 		$Datum = $_POST['Datum'];
@@ -19,8 +22,8 @@
 				VALUES ('$Datum', '$AantalPesoonen', '$KlantID', '$TafelID');";
 			mysqli_query($con, $QueryBooking);
 
-            prettyprint($QueryBooking);
-		// header("location: booking.php");
+            // prettyprint($QueryBooking);
+		header("location: booking.php");
 	}
 ?>
 
