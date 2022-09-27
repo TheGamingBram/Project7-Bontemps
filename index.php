@@ -56,6 +56,7 @@
                     <a href="product.html" class="nav-item nav-link">Products</a>
                     <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 </div>
+
                 <div class="d-none d-lg-flex ms-2">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -884,8 +885,8 @@
 
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="Assets/lib/wow/wow.min.js"></script>
     <script src="Assets/lib/easing/easing.min.js"></script>
     <script src="Assets/lib/waypoints/waypoints.min.js"></script>
