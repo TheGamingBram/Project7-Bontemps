@@ -54,21 +54,18 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="about.html" class="nav-item nav-link">About Us</a>
                     <a href="product.html" class="nav-item nav-link">Products</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                            <a href="feature.html" class="dropdown-item">Our Features</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
                     <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
-                        <div class="fa fa-user text-body"></div>
-                    </a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <div class="fa fa-user text-body"></div>
+                        </a>
+                        <div class="dropdown-menu m-0">
+                            <a href="" class="dropdown-item">Inloggen</a>
+                            <a href="" class="dropdown-item">Uitloggen</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
