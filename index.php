@@ -54,21 +54,19 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="about.html" class="nav-item nav-link">About Us</a>
                     <a href="product.html" class="nav-item nav-link">Products</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="blog.html" class="dropdown-item">Blog Grid</a>
-                            <a href="feature.html" class="dropdown-item">Our Features</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div>
                     <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 </div>
+
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
-                        <div class="fa fa-user text-body"></div>
-                    </a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <div class="fa fa-user text-body"></div>
+                        </a>
+                        <div class="dropdown-menu m-0">
+                            <a href="" class="dropdown-item">Inloggen</a>
+                            <a href="" class="dropdown-item">Uitloggen</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -151,32 +149,32 @@
     <div class="container-fluid bg-light bg-icon my-5 py-6">
         <div class="container">
             <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <h1 class="display-5 mb-3">Our Features</h1>
-                <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                <h1 class="display-5 mb-3">Onze menu's</h1>
+                <p>Hier vind u onze verschillende soorten menu's waar u uit kunt kiezen.</p>
             </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="Assets/img/icon-1.png" alt="">
-                        <h4 class="mb-3">Natural Process</h4>
-                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
-                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Read More</a>
+                        <img class="img-fluid mb-4" src="Assets/img/koe-foto.png" alt="Vlees foto">
+                        <h4 class="mb-3">Vlees</h4>
+                        <p class="mb-4">Zoals echte mannen vlees eten serveren wij ook vlees. Een lekker mals stukkie</p>
+                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Meer info</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="Assets/img/icon-2.png" alt="">
-                        <h4 class="mb-3">Organic Products</h4>
-                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
-                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Read More</a>
+                        <img class="img-fluid mb-4" src="Assets/img/visje.png" alt="Vis foto">
+                        <h4 class="mb-3">Vis</h4>
+                        <p class="mb-4">Ja mensen eten ook vis. Dus dan doen wij er ook maar vis bij.</p>
+                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Meer info</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="bg-white text-center h-100 p-4 p-xl-5">
-                        <img class="img-fluid mb-4" src="Assets/img/icon-3.png" alt="">
-                        <h4 class="mb-3">Biologically Safe</h4>
-                        <p class="mb-4">Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed vero dolor duo.</p>
-                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Read More</a>
+                        <img class="img-fluid mb-4" src="Assets/img/icon-1.png" alt="Vegan foto">
+                        <h4 class="mb-3">Vegetarisch</h4>
+                        <p class="mb-4">Ook wij serveren vegetetarisch eten. Eet gewoon vlees.</p>
+                        <a class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" href="">Meer info</a>
                     </div>
                 </div>
             </div>
@@ -887,8 +885,8 @@
 
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="Assets/lib/wow/wow.min.js"></script>
     <script src="Assets/lib/easing/easing.min.js"></script>
     <script src="Assets/lib/waypoints/waypoints.min.js"></script>
