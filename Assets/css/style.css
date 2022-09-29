@@ -192,6 +192,11 @@ a{
     }
 } */
 
+.dropdown-menu.show{
+    left: -100px;
+    margin-top: 10px !important;
+}
+
 .page-header {
     padding-top: 12rem;
     padding-bottom: 6rem;
