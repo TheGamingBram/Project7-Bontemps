@@ -1,59 +1,31 @@
 <?php
-    session_start();
+    // session_start();
     include("./Assets/config.php"); //connection to database and some test functions
     include("./Assets/header.php"); //insert to bootstrap and other java scripts
 
-    prettyprint($_POST);
-?>
-<!-- Button trigger modal
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal">
-  LOGIN
-</button>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RegistModal">
-  Regist
-</button>
- Modal
-<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-        <form class="form-horizontal" method=post action="">
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="email-name" class="col-form-label">Email:</label>
-                    <input type="email" required name="Email" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="email-name" class="col-form-label">Password:</label>
-                    <input type="password" required name="Password" class="form-control" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="hidden" value="Login" name="Type">
-                <button type="submit" value="Submit" name="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </form>
-  </div>
-</div> -->
+    
 
+    $username = $password = $telephone = $email = "";
+    $username_err = $password_err = $tel_err = $email_err = "";
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        prettyprint($_POST);
+    }
+?>
 
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalToggleLabel">Login</h5>
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Register</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Register</button> -->
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form class="form-horizontal" method=post action="">
+        <form class="form-horizontal" method=post action="" autocomplete="off">
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Email:</label>
-                    <input type="email" required name="Email" class="form-control" />
+                    <input type="email"  required name="Email" class="form-control"/>
                 </div>
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Password:</label>
@@ -74,10 +46,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalToggleLabel2">Registreer</h5>
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button> -->
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form class="form-horizontal" method=post action="">
+        <form class="form-horizontal" method=post action="" autocomplete="off">
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="Name-name" class="col-form-label">Naam:</label>
@@ -86,10 +58,6 @@
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Email:</label>
                     <input type="email" required name="Email" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="email-name" class="col-form-label">Password:</label>
-                    <input type="password" required name="Password" class="form-control" />
                 </div>
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Password:</label>
@@ -129,23 +97,5 @@
       </div>
     </div>
   </div>
-  <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Open first modal</a>
-
-<script>
-
-    function ToggleLogin() {
-        var DIV_Login = document.getElementById("Login-Cont");
-        var DIV_Regist = document.getElementById("Regist-Cont");
-
-        DIV_Login.style.display = "block";
-        DIV_Regist.style.display = "none";
-    }
-    function ToggleRegist() {
-        var DIV_Login = document.getElementById("Login-Cont");
-        var DIV_Regist = document.getElementById("Regist-Cont");
-
-        DIV_Login.style.display = "none";
-        DIV_Regist.style.display = "block";
-    }
-
-</script>
+  <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">LOGIN FORM</button>
+  <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">REGISTER FORM</button>
