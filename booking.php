@@ -9,7 +9,7 @@
     include('Assets/Checklogin.php');
 
     //zegt of het een medewerker of een klant
-    $_SESSION['HumanClass'] = true;
+    $_SESSION['HumanClass'] = false;
 
     //checkt of je een klant of medewerkerbent
     if(!$_SESSION['HumanClass'])
