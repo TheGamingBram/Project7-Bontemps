@@ -398,3 +398,11 @@ a{
     background: url('../img/bontempslogo.png');
     background-size: cover;
 }
+
+.wrapper{
+    width: 600px;
+    margin: 0 auto;
+}
+table tr td:last-child{
+    width: 120px;
+}
