@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Sep 26, 2022 at 09:22 AM
--- Server version: 5.7.36
--- PHP Version: 7.4.26
+-- Host: 127.0.0.1
+-- Generation Time: Oct 03, 2022 at 11:57 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,18 +27,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `klanten`
 --
 
-DROP TABLE IF EXISTS `klanten`;
-CREATE TABLE IF NOT EXISTS `klanten` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `klanten` (
+  `ID` int(11) NOT NULL,
   `Naam` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `Wachtwoord` varchar(255) NOT NULL,
   `Telefoonnummer` varchar(12) NOT NULL,
   `Adres` varchar(255) NOT NULL,
   `Postcode` varchar(255) NOT NULL,
-  `Plaats` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  `Plaats` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `klanten`
@@ -53,18 +51,16 @@ INSERT INTO `klanten` (`ID`, `Naam`, `Email`, `Wachtwoord`, `Telefoonnummer`, `A
 -- Table structure for table `medewerkers`
 --
 
-DROP TABLE IF EXISTS `medewerkers`;
-CREATE TABLE IF NOT EXISTS `medewerkers` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `medewerkers` (
+  `ID` int(11) NOT NULL,
   `Naam` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `Wachtwoord` varchar(255) NOT NULL,
   `Telefoonnummer` varchar(12) NOT NULL,
   `Adres` varchar(255) NOT NULL,
   `Postcode` varchar(255) NOT NULL,
-  `Plaats` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  `Plaats` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `medewerkers`
@@ -79,13 +75,11 @@ INSERT INTO `medewerkers` (`ID`, `Naam`, `Email`, `Wachtwoord`, `Telefoonnummer`
 -- Table structure for table `menu`
 --
 
-DROP TABLE IF EXISTS `menu`;
-CREATE TABLE IF NOT EXISTS `menu` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `menu` (
+  `ID` int(11) NOT NULL,
   `Naam_ID` int(11) NOT NULL,
-  `Producten_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  `Producten_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `menu`
@@ -100,12 +94,10 @@ INSERT INTO `menu` (`ID`, `Naam_ID`, `Producten_ID`) VALUES
 -- Table structure for table `menunaam`
 --
 
-DROP TABLE IF EXISTS `menunaam`;
-CREATE TABLE IF NOT EXISTS `menunaam` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Naam` varchar(255) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `menunaam` (
+  `ID` int(11) NOT NULL,
+  `Naam` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `menunaam`
@@ -122,13 +114,11 @@ INSERT INTO `menunaam` (`ID`, `Naam`) VALUES
 -- Table structure for table `producten`
 --
 
-DROP TABLE IF EXISTS `producten`;
-CREATE TABLE IF NOT EXISTS `producten` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `producten` (
+  `ID` int(11) NOT NULL,
   `Naam` varchar(255) NOT NULL,
-  `Prijs` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  `Prijs` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `producten`
@@ -143,15 +133,13 @@ INSERT INTO `producten` (`ID`, `Naam`, `Prijs`) VALUES
 -- Table structure for table `reserveringen`
 --
 
-DROP TABLE IF EXISTS `reserveringen`;
-CREATE TABLE IF NOT EXISTS `reserveringen` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Datum` datetime(2) DEFAULT CURRENT_TIMESTAMP(2),
+CREATE TABLE `reserveringen` (
+  `ID` int(11) NOT NULL,
+  `Datum` datetime(2) DEFAULT current_timestamp(2),
   `Aantal` int(2) NOT NULL,
   `Klanten_ID` int(11) NOT NULL,
   `Medewerker_ID` int(11) NOT NULL,
-  `Tafel_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `Tafel_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -160,14 +148,128 @@ CREATE TABLE IF NOT EXISTS `reserveringen` (
 -- Table structure for table `reserveringmenu`
 --
 
-DROP TABLE IF EXISTS `reserveringmenu`;
-CREATE TABLE IF NOT EXISTS `reserveringmenu` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `reserveringmenu` (
+  `ID` int(11) NOT NULL,
   `menu_ID` int(11) NOT NULL,
   `aantal` int(11) NOT NULL,
-  `reservering_ID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
+  `reservering_ID` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tafels`
+--
+
+CREATE TABLE `tafels` (
+  `ID` int(11) NOT NULL,
+  `Naam` varchar(255) NOT NULL,
+  `Personen` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `klanten`
+--
+ALTER TABLE `klanten`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `medewerkers`
+--
+ALTER TABLE `medewerkers`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `menunaam`
+--
+ALTER TABLE `menunaam`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `producten`
+--
+ALTER TABLE `producten`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `reserveringen`
+--
+ALTER TABLE `reserveringen`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `reserveringmenu`
+--
+ALTER TABLE `reserveringmenu`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `tafels`
+--
+ALTER TABLE `tafels`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `klanten`
+--
+ALTER TABLE `klanten`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `medewerkers`
+--
+ALTER TABLE `medewerkers`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `menunaam`
+--
+ALTER TABLE `menunaam`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `producten`
+--
+ALTER TABLE `producten`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `reserveringen`
+--
+ALTER TABLE `reserveringen`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reserveringmenu`
+--
+ALTER TABLE `reserveringmenu`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tafels`
+--
+ALTER TABLE `tafels`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
