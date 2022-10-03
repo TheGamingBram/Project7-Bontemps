@@ -9,9 +9,6 @@
     /* Attempt to connect to MySQL database */
     $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
     $con = mysqli_connect(DB_SERVER,DB_USER,DB_PASS,DB_NAME);
-
-    
-    // $conn = mysqli_connect('localhost', 'root', '', '');
     
     /* Check connection */
     if($link === false){
@@ -22,5 +19,9 @@
         echo '<pre>';           // Kan Verwijderd worden
             print_r($arr);
         echo '</pre>';
+    }
+
+    function PHP_Allert($msg){
+        echo '<script>alert("'.$msg.'")</script>';
     }
 ?>

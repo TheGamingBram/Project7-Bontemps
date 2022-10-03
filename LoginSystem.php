@@ -1,59 +1,172 @@
 <?php
-    session_start();
+    
     include("./Assets/config.php"); //connection to database and some test functions
     include("./Assets/header.php"); //insert to bootstrap and other java scripts
 
-    prettyprint($_POST);
-?>
-<!-- Button trigger modal
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal">
-  LOGIN
-</button>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#RegistModal">
-  Regist
-</button>
- Modal
-<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-        <form class="form-horizontal" method=post action="">
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="email-name" class="col-form-label">Email:</label>
-                    <input type="email" required name="Email" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="email-name" class="col-form-label">Password:</label>
-                    <input type="password" required name="Password" class="form-control" />
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="hidden" value="Login" name="Type">
-                <button type="submit" value="Submit" name="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </form>
-  </div>
-</div> -->
+    session_start();
 
+    $username       = $password         = $telephone    = $email        = $adress       = $place        = $postalcode       = "";
+    $username_err   = $password_err     = $tel_err      = $email_err    = $adress_err   = $place_err    = $postalcode_err   = "";
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        prettyprint($_POST); //Echo ALL
+
+        if($_POST['Type'] == "Regist"){
+            //Register Code
+            
+            //Name Checker!
+            if(empty(trim($_POST["name"]))){
+                $username_err = "Vul aub een naam in";
+            }elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["name"]))){
+                $username_err = "Namen kunnen alleen maar bestaan uit letters, cijfers!";
+            }else{
+                $username = trim($_POST["name"]);
+            }
+
+            //EMAIL Checker!
+            if(empty(trim($_POST["Email"]))){
+                $email_err = "Please enter a email.";
+            } else{
+                // Prepare a select statement
+                $sql = "SELECT id FROM klanten WHERE Email = ?";
+                
+                if($stmt = mysqli_prepare($link, $sql)){
+                    // Bind variables to the prepared statement as parameters
+                    mysqli_stmt_bind_param($stmt, "s", $param_email);
+                    
+                    // Set parameters
+                    $param_email = trim($_POST["Email"]);
+                    
+                    // Attempt to execute the prepared statement
+                    if(mysqli_stmt_execute($stmt)){
+                        /* store result */
+                        mysqli_stmt_store_result($stmt);
+
+                        if(mysqli_stmt_num_rows($stmt) == 1){
+                            $email_err = "This email is already taken.";
+                        } else{
+                            $email = $_POST["Email"];
+                        }
+                    } else{
+                        $email_err = "Oops! Something went wrong. Please try again later.";
+                    }
+        
+                    // Close statement
+                    mysqli_stmt_close($stmt);
+                }
+            }
+
+            //Check Password!
+            if(empty(trim($_POST["Password"]))){
+                $password_err = "Please enter a password.";     
+            } elseif(strlen(trim($_POST["Password"])) < 6){
+                $password_err = "Password must have atleast 6 characters.";
+            } else{
+                $password = trim($_POST["Password"]);
+            }
+
+            //CHECK Phone Nr!
+            if(empty(trim($_POST["phone"]))){
+                $tel_err = "Please enter a phone number.";
+            }else{
+                $telephone = trim($_POST["phone"]);
+            }
+
+            //CHECK Adress!
+            if(empty(trim($_POST["Adress"]))){
+                $adress_err = "Please enter a Adress.";
+            }else{
+                $adress = trim($_POST["Adress"]);
+            }
+
+            //CHECK Postcode!
+            if(empty(trim($_POST["Postcode"]))){
+                $postalcode_err = "Please enter";
+            }else{
+                $postalcode = trim($_POST["Postcode"]);
+            }
+
+            //CHECK Plaats!
+            if(empty(trim($_POST["Plaats"]))){
+                $place_err = "Please enter";
+            }else{
+                $place = trim($_POST["Plaats"]);
+            }
+
+
+            
+            if(empty($username_err) && empty($password_err) && empty($tel_err) && empty($email_err) && empty($adress_err) && empty($place_err) && empty($postalcode_err)){
+                
+                //$sql = "INSERT INTO klanten (Naam, Email, Wachtwoord, Telefoon, Adres, Postcode, Plaats) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                //$sql = "SELECT id FROM klanten WHERE Email = ?";
+                $sql = "INSERT INTO `klanten` (`ID`, `Naam`, `Email`, `Wachtwoord`, `Telefoonnummer`, `Adres`, `Postcode`, `Plaats`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
+                if($stmt = mysqli_prepare($link, $sql)){
+                    mysqli_stmt_bind_param($stmt, "sssssss", $param_username, $param_email, $param_password, $param_tel, $param_adres, $param_postcode, $param_plaats);
+                    
+                    $param_username     = $username;
+                    $param_email        = $email;
+                    $param_password     = password_hash($password, PASSWORD_DEFAULT);
+                    $param_tel          = $telephone;
+                    $param_adres        = $adress;
+                    $param_postcode     = $postalcode;
+                    $param_plaats       = $place;
+
+                    if(mysqli_stmt_execute($stmt)){
+
+                    }else{
+                        PHP_Allert("Oops! Something went wrong. Please try again later.");
+                    }
+
+                    // Close statement
+                    mysqli_stmt_close($stmt);
+                }
+                else {
+                    if(!empty($username_err)){
+                        PHP_Allert($username_err);
+                    }
+                    if(!empty($password_err)){
+                        PHP_Allert($password_err);
+                    }
+                    if(!empty($tel_err)){
+                        PHP_Allert($tel_err);
+                    }
+                    if(!empty($email_err)){
+                        PHP_Allert($email_err);
+                    }
+                    if(!empty($adress_err)){
+                        PHP_Allert($adress_err);
+                    }
+                    if(!empty($postalcode_err)){
+                        PHP_Allert($postalcode_err);
+                    }
+                    if(!empty($place_err)){
+                        PHP_Allert($place_err);
+                    }
+                }
+            }
+        }
+        elseif ($_POST['Type'] == "Login") {
+            
+        }else {
+            
+        }
+    }
+?>
 
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalToggleLabel">Login</h5>
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Register</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Register</button> -->
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form class="form-horizontal" method=post action="">
+        <form class="form-horizontal" method=post action="" autocomplete="off">
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Email:</label>
-                    <input type="email" required name="Email" class="form-control" />
+                    <input type="email"  required name="Email" class="form-control"/>
                 </div>
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Password:</label>
@@ -74,10 +187,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalToggleLabel2">Registreer</h5>
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button> -->
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form class="form-horizontal" method=post action="">
+        <form class="form-horizontal" method=post action="" autocomplete="off">
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="Name-name" class="col-form-label">Naam:</label>
@@ -86,10 +199,6 @@
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Email:</label>
                     <input type="email" required name="Email" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="email-name" class="col-form-label">Password:</label>
-                    <input type="password" required name="Password" class="form-control" />
                 </div>
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Password:</label>
@@ -129,23 +238,5 @@
       </div>
     </div>
   </div>
-  <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Open first modal</a>
-
-<script>
-
-    function ToggleLogin() {
-        var DIV_Login = document.getElementById("Login-Cont");
-        var DIV_Regist = document.getElementById("Regist-Cont");
-
-        DIV_Login.style.display = "block";
-        DIV_Regist.style.display = "none";
-    }
-    function ToggleRegist() {
-        var DIV_Login = document.getElementById("Login-Cont");
-        var DIV_Regist = document.getElementById("Regist-Cont");
-
-        DIV_Login.style.display = "none";
-        DIV_Regist.style.display = "block";
-    }
-
-</script>
+  <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">LOGIN FORM</button>
+  <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">REGISTER FORM</button>
