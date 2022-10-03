@@ -14,9 +14,14 @@
     //checkt of je een klant of medewerkerbent
     if(!$_SESSION['HumanClass'])
     {
-        $inhoudklant = '<input type="text" hidden placeholder="KlantID" value="5" name="KlantID" id="KlantID" class="form-control">';
+        $inhoudtafel = '<input type="text" hidden value="0" name="TafelID" id="TafelID" class="form-control">';
+
+        $inhoudklant = '<input type="text" hidden value="5" name="KlantID" id="KlantID" class="form-control">';
     }else
     {
+        $inhoudtafel = '<label class="label" for="Tafel">Tafel</label>';
+        $inhoudtafel .= '<input type="text" placeholder="Tafel" name="TafelID" id="TafelID" class="form-control" required>';
+
         $inhoudklant = '<label class="label" for="KlantenNaam">Klant</label>';
         $inhoudklant .= '<input type="text" placeholder="Klanten Naam" name="KlantenNaam" id="KlantenNaam" class="form-control" required>';
     }
@@ -54,7 +59,7 @@
 			mysqli_query($con, $QueryBooking);
 
             // prettyprint($QueryBooking);
-		header("location: booking.php");
+		// header("location: booking.php");
 	}
 ?>
 
@@ -80,8 +85,7 @@
                         <input type="AantalPersoonen" placeholder="Aantal Persoonen" name="AantalPersoonen" id="AantalPersoonen" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="label" for="Tafel">Tafel</label>
-                        <input type="text" placeholder="Tafel" name="TafelID" id="TafelID" class="form-control" required>
+                        <?php echo $inhoudtafel;?>
                     </div>
                     <div class="mb-3">
                         <?php echo $inhoudklant;?>
