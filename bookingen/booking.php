@@ -3,10 +3,10 @@
     session_start();
 
     //voegt de benodigde bestanden toe
-    include('Assets/Config.php');
-    include('Assets/Header.php');
-    // include('header.php');
-    include('Assets/Checklogin.php');
+    include('../Assets/Config.php');
+    include('../Assets/Header.php');
+    // include('../header.php');
+    include('../Assets/Checklogin.php');
 
     //zegt of het een medewerker of een klant
     $_SESSION['HumanClass'] = false;
