@@ -58,7 +58,7 @@
 			mysqli_query($con, $QueryBooking);
 
             // prettyprint($QueryBooking);
-		// header("location: booking.php");
+		header("location: index.php");
 	}
 ?>
 

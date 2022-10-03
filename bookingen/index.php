@@ -113,7 +113,8 @@
     $(document).ready( function () {
         $('#bookingenTable').DataTable({
             "ordering": false,
-            "info":     false
+            "info":     false,
+            "bLengthChange": false,
         });
     } );
 </script>
