@@ -9,10 +9,19 @@
     include('../Assets/Checklogin.php');
 
     $_SESSION['userid'] = "5";
+    $_SESSION['HumanClass'] = false;
+
 
     $KlantID = $_SESSION['userid'];
+    if(!$_SESSION['HumanClass'])
+    {
+        $QueryBooking = "SELECT Datum, Aantal, Klanten_ID AS KlantenID, Tafel_ID AS TafelID FROM reserveringen WHERE Klanten_ID = '$KlantID'";
+    }
+    else
+    {
+        $QueryBooking = "SELECT Datum, Aantal, Klanten_ID AS KlantenID, Tafel_ID AS TafelID FROM reserveringen";
+    }
 
-    $QueryBooking = "SELECT Datum, Aantal, Klanten_ID AS KlantenID, Tafel_ID AS TafelID FROM reserveringen WHERE Klanten_ID = '$KlantID'";
     $resultBooking=$con->query($QueryBooking);
     if($stmt = mysqli_prepare($con, $QueryBooking)){
         $varBooking = "";
@@ -37,9 +46,9 @@
                }
             }
 
-            $varBooking .= "<tr> <td>$Aantal</td> <td>$KlantNaam</td> <td>$TafelID</td> <td>$Datum</td> </tr>";
-
-
+            $varBooking .= "<tr> <td>$Aantal</td> <td>$KlantNaam</td>";
+            $varBooking .= "<td>$TafelID</td> <td>$Datum</td>";
+            $varBooking .= "<td> <button class='fa-regular fa-pen'></button> <button class='fa-regular fa-trash'></button></td> </tr>";
         }
        }
     }
@@ -83,6 +92,7 @@
                             <th>Gast</th>
                             <th>Tafel</th>
                             <th>Datum</th>
+                            <th>Akties</th>
                         </tr>
                     </thead>
                     <tbody>
