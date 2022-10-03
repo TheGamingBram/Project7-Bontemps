@@ -6,13 +6,16 @@
 
     prettyprint($_SESSION);
     if($_SESSION["login"] == "true" && isset($_SESSION['userid'])){
-        $sql = "SELECT Naam, Email, Telefoonnummer, Adres, Postcode, Plaats FROM klanten WHERE ID = ?"
-        if($stmt = mysqli_prepare($link, $sql)){{
+        $sql = "SELECT Naam, Email, Telefoonnummer, Adres, Postcode, Plaats FROM klanten WHERE ID = ?";
+        if($stmt = mysqli_prepare($link, $sql)){
             mysqli_stmt_bind_param($stmt, "s", $param_id);
             $param_id = $_SESSION['userid'];
             if(mysqli_stmt_execute($stmt)){
                 mysqli_stmt_store_result($stmt);
-                mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                mysqli_stmt_bind_result($stmt, $username, $email, $Telefoonnummer, $adress, $postcode, $plaats);
+                if(mysqli_stmt_fetch($stmt)){
+
+                }
             }
         }
     }else {
