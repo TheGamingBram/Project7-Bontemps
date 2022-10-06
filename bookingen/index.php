@@ -116,6 +116,9 @@
             "ordering": false,
             "info":     false,
             "bLengthChange": false,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/nl-NL.json"
+            }
         });
     } );
 </script>
