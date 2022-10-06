@@ -15,7 +15,7 @@
     {
         $inhoudtafel = '<input type="text" hidden value="0" name="TafelID" id="TafelID" class="form-control">';
 
-        $inhoudklant = '<input type="text" hidden value="5" name="KlantID" id="KlantID" class="form-control">';
+        $inhoudklant = '<input type="text" hidden value="'.$_SESSION['userid'].'" name="KlantID" id="KlantID" class="form-control">';
     }else
     {
         $inhoudtafel = '<label class="label" for="Tafel">Tafel</label>';
@@ -58,7 +58,7 @@
 			mysqli_query($con, $QueryBooking);
 
             // prettyprint($QueryBooking);
-		header("location: index.php");
+		    header("location: index.php");
 	}
 ?>
 
