@@ -1,17 +1,16 @@
 <?php
     
-    include("./Assets/config.php"); //connection to database and some test functions
-    include("./Assets/header.php"); //insert to bootstrap and other java scripts
+    include("../Assets/config.php"); //connection to database and some test functions
+    include("../Assets/header.php"); //insert to bootstrap and other java scripts
 
     session_start();
 
     $username       = $password         = $telephone    = $email        = $adress       = $place        = $postalcode       = "";
     $username_err   = $password_err     = $tel_err      = $email_err    = $adress_err   = $place_err    = $postalcode_err   = "";
-
+    	
+    prettyprint($_POST); //Echo ALL
+    prettyprint($_SESSION); //Echo ALL
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-        prettyprint($_POST); //Echo ALL
-
         if($_POST['Type'] == "Regist"){
             //Register Code
             
@@ -98,8 +97,6 @@
             
             if(empty($username_err) && empty($password_err) && empty($tel_err) && empty($email_err) && empty($adress_err) && empty($place_err) && empty($postalcode_err)){
                 
-                //$sql = "INSERT INTO klanten (Naam, Email, Wachtwoord, Telefoon, Adres, Postcode, Plaats) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                //$sql = "SELECT id FROM klanten WHERE Email = ?";
                 $sql = "INSERT INTO `klanten` (`ID`, `Naam`, `Email`, `Wachtwoord`, `Telefoonnummer`, `Adres`, `Postcode`, `Plaats`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
                 if($stmt = mysqli_prepare($link, $sql)){
                     mysqli_stmt_bind_param($stmt, "sssssss", $param_username, $param_email, $param_password, $param_tel, $param_adres, $param_postcode, $param_plaats);
@@ -113,7 +110,21 @@
                     $param_plaats       = $place;
 
                     if(mysqli_stmt_execute($stmt)){
-
+                        $sql_GetUID = "SELECT `ID` FROM `klanten` WHERE `Email` = ?";
+                        
+                        if($stmt_USERID = mysqli_prepare($link, $sql_GetUID)){
+                            mysqli_stmt_bind_param($stmt_USERID, "s", $email);
+                            if(mysqli_stmt_execute($stmt_USERID)){
+                                mysqli_stmt_store_result($stmt_USERID);
+                                mysqli_stmt_bind_result($stmt_USERID, $id);
+                                if(mysqli_stmt_fetch($stmt_USERID)){
+                                    $_SESSION["userid"] = $id;
+                                    $_SESSION["login"] = "true";
+                                    mysqli_stmt_close($stmt_USERID);
+                                }   
+                            }
+                        }
+                        
                     }else{
                         PHP_Allert("Oops! Something went wrong. Please try again later.");
                     }
@@ -147,9 +158,43 @@
             }
         }
         elseif ($_POST['Type'] == "Login") {
-            
+            if(empty(trim($_POST["Email"]))){
+                $email_err = "Please enter username.";
+            } else{
+                $email = trim($_POST["Email"]);
+            }
+            if(empty(trim($_POST["Password"]))){
+                $password_err = "Please enter your password.";
+            } else{
+                $password = trim($_POST["Password"]);
+            }
+
+            if(empty($email_err) && empty($password_err)){
+                $sql = "SELECT ID, Wachtwoord FROM klanten WHERE Email = ?";
+                if($stmt = mysqli_prepare($link, $sql)){
+                    mysqli_stmt_bind_param($stmt, "s", $param_email);
+                    $param_email = $email;
+                    if(mysqli_stmt_execute($stmt)){
+                        mysqli_stmt_store_result($stmt);
+                        if(mysqli_stmt_num_rows($stmt) == 1){
+                            mysqli_stmt_bind_result($stmt, $id, $hashed_password);
+                            if(mysqli_stmt_fetch($stmt)){
+                                if(password_verify($password, $hashed_password)){
+                                    $_SESSION["userid"] = $id;
+                                    $_SESSION["login"] = "true";
+                                }else{
+                                    PHP_Allert("Invalid username or password.");
+                                }
+                            }
+                        }else {
+                            PHP_Allert("Invalid username or password.");
+                        }
+                    }
+                }
+            }
+
         }else {
-            
+            PHP_Allert("The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal. [beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark, get ready, start.");
         }
     }
 ?>
