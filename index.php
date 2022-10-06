@@ -38,9 +38,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="about.html" class="nav-item nav-link">About Us</a>
-                    <a href="product.html" class="nav-item nav-link">Products</a>
-                    <a href="contact.php" class="nav-item nav-link">Contact Us</a>
+                    <a href="about.html" class="nav-item nav-link">Over ons</a>
+                    <a href="product.html" class="nav-item nav-link">Product</a>
+                    <a href="contact.php" class="nav-item nav-link">Contact gegevens</a>
                 </div>
 
                 <div class="d-none d-lg-flex ms-2">
@@ -50,7 +50,7 @@
                         </a>
                         <div class="dropdown-menu m-0">
                             <a href="" class="dropdown-item">Inloggen</a>
-                            <a href="" class="dropdown-item">Uitloggen</a>
+                            <a href="" class="dropdown-item">Registeren</a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     <p><i class="fa fa-check text-primary me-3"></i>Gezelligheid</p>
                     <p><i class="fa fa-check text-primary me-3"></i>Gastvrijheid</p>
                     <p><i class="fa fa-check text-primary me-3"></i>Lekker eten</p>
-                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Read More</a>
+                    <a class="btn btn-primary rounded-pill py-3 px-5 mt-3" href="">Lees meer</a>
                 </div>
             </div>
         </div>
@@ -142,7 +142,7 @@
                     <p><i class="fa fa-envelope me-3"></i><a href=mail:info@bontemps.nl>info@example.com</a></p>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4">Quick Links</h4>
+                    <h4 class="text-light mb-4">Andere websites</h4>
                     <a class="btn btn-link" href="">Contact Us</a>
                     <a class="btn btn-link" href="">Menu</a>
                     <a class="btn btn-link" href="">Tafel overzicht</a>

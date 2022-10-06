@@ -87,6 +87,9 @@ a{
     font-weight: normal;
 }
 
+.btn-success{
+    background-color: #0d6efd !important;
+}
 
 /*** Navbar ***/
 .fixed-top {
@@ -403,6 +406,7 @@ a{
     width: 600px;
     margin: 0 auto;
 }
+
 table tr td:last-child{
     width: 120px;
 }
