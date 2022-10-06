@@ -48,7 +48,8 @@
 
             $varBooking .= "<tr> <td>$Aantal</td> <td>$KlantNaam</td>";
             $varBooking .= "<td>$TafelID</td> <td>$Datum</td>";
-            $varBooking .= "<td> <button class='fa-regular fa-pen'></button> <button class='fa-regular fa-trash'></button></td> </tr>";
+            $varBooking .= "<td> <button class='btn btn-warning'><i class='fa-regular fa-pen'></i></button>";
+            $varBooking .= "<button class='btn btn-danger'><i class='fa-regular fa-trash'></i></button></td> </tr>";
         }
        }
     }
