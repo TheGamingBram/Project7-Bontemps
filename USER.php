@@ -1,15 +1,13 @@
 <?php
     
-    include("../Assets/config.php"); //connection to database and some test functions
-    include("../Assets/header.php"); //insert to bootstrap and other java scripts
+    include("./Assets/config.php"); //connection to database and some test functions
+    // include("../Assets/header.php"); //insert to bootstrap and other java scripts
 
-    session_start();
+    
 
     $username       = $password         = $telephone    = $email        = $adress       = $place        = $postalcode       = "";
     $username_err   = $password_err     = $tel_err      = $email_err    = $adress_err   = $place_err    = $postalcode_err   = "";
     	
-    prettyprint($_POST); //Echo ALL
-    prettyprint($_SESSION); //Echo ALL
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($_POST['Type'] == "Regist"){
             //Register Code
@@ -204,7 +202,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalToggleLabel">Login</h5>
-          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Register</button> -->
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form class="form-horizontal" method=post action="" autocomplete="off">
@@ -232,7 +229,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalToggleLabel2">Registreer</h5>
-          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button> -->
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form class="form-horizontal" method=post action="" autocomplete="off">
