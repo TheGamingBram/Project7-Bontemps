@@ -43,6 +43,7 @@
                                     echo "<tr>";
                                         echo "<th>Naam</th>";
                                         echo "<th>Personen</th>";
+                                        echo "<th>Bewerken</th>";
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
@@ -50,11 +51,10 @@
                                     echo "<tr>";
                                         echo "<td>" . $row['Naam'] . "</td>";
                                         echo "<td>" . $row['Personen'] . "</td>";
-                                        // echo "<td>";
-                                        //     echo '<a href="read.php?id='. $row['ID'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
-                                        //     echo '<a href="update.php?id='. $row['ID'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                        //     echo '<a href="delete.php?id='. $row['ID'] .'" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
-                                        // echo "</td>";
+                                        echo "<td>";
+                                            echo '<a href="update.php?id='. $row['ID'] .'" class="mr-3" title="Bewerken" data-toggle="tooltip"><span class="fa-regular fa-pen"></span></a>';
+                                            echo '<a href="delete.php?id='. $row['ID'] .'" title="Verwijderen" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                        echo "</td>";
                                     echo "</tr>";
                                 }
                                 echo "</tbody>";                            

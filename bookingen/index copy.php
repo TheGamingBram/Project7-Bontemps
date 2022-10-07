@@ -3,8 +3,8 @@
     session_start();
 
     //voegt de benodigde bestanden toe
-    include('../Assets/Config.php');
-    include('Booking.php');
+    // include('../Assets/Config.php');
+    include('Table.php');
     include('../Assets/Header.php');
     // include('../header.php');
     include('../Assets/Checklogin.php');
@@ -20,6 +20,9 @@
         if($_REQUEST['action'] == "delete")
         {
             Booking::delete($_REQUEST['booking']);
+        //    $BookingID = $_REQUEST['booking'];
+        //     $DelQueryBooking = "DELETE FROM reserveringen WHERE ID = '$BookingID'";
+        //     $DeleteBooking=$con->query($DelQueryBooking);
     
             header("location: index.php");
         }
@@ -29,37 +32,56 @@
     $KlantID = $_SESSION['userid'];
     if(!$_SESSION['HumanClass'])
     {
-        $QueryBooking = "SELECT * FROM reserveringen WHERE Klanten_ID = '$KlantID'";
+        $QueryBooking = "SELECT ID, Datum, Aantal, Klanten_ID AS KlantenID, Tafel_ID AS TafelID FROM reserveringen WHERE Klanten_ID = '$KlantID'";
     }
     else
     {
-        $QueryBooking = "SELECT * FROM reserveringen";
+        $QueryBooking = "SELECT ID, Datum, Aantal, Klanten_ID AS KlantenID, Tafel_ID AS TafelID FROM reserveringen";
     }
 
-   $reservaties = Booking::select(null, $QueryBooking);
-   
-   $tableBooking = "";
-    foreach($reservaties as $reservatie)
-    {
-        // prettyprint($reservatie); 
-        $tableBooking .= 
-        "<tr> 
-            <td>" . $reservatie->quantity . "</td> 
-            <td>" . $reservatie->getCustomerName() . "</td>
-            <td>" . $reservatie->date . "</td> 
-            <td>" . $reservatie->tableId . "</td>
-            <td> 
-                <a href='?booking=" . $reservatie->id ."&action=edit' class='btn btn-warning'>
-                    <i class='fa-regular fa-pen'></i>
-                </a>
-                <a href='?booking=" . $reservatie->id . "&action=delete' class='btn btn-danger'>
-                    <i class='fa-regular fa-trash'></i>
-                </a>
-            </td> 
-        </tr>";
+    $resultBooking=$con->query($QueryBooking);
+    if($stmt = mysqli_prepare($con, $QueryBooking)){
+        $tableBooking = "";
+       while($rowBooking = $resultBooking->fetch_assoc())
+       {
+        if($rowBooking != NULL)
+        {   
+            $id = $rowBooking['ID'];
+            $Datum = $rowBooking['Datum'];
+            $Aantal = $rowBooking['Aantal'];
+            $KlantID = $rowBooking['KlantenID'];
+            $TafelID = $rowBooking['TafelID'];
+
+            $Queryklanten = "SELECT Naam FROM klanten WHERE ID = '$KlantID'";
+            $resultklanten=$con->query($Queryklanten);
+            if($stmt = mysqli_prepare($con, $Queryklanten)){
+               while($rowklanten = $resultklanten->fetch_assoc())
+               {
+                if($rowklanten != NULL)
+                {
+                    $KlantNaam = $rowklanten['Naam'];
+                }
+               }
+            }
+
+            $tableBooking .= 
+            "<tr> 
+                <td>" . $Aantal . "</td> 
+                <td>" . $KlantNaam . "</td>
+                <td>" . $TafelID . "</td> 
+                <td>" . $Datum . "</td>
+                <td> 
+                    <a href='?booking=" . $id ."&action=edit' class='btn btn-warning'>
+                        <i class='fa-regular fa-pen'></i>
+                    </a>
+                    <a href='?booking=" . $id . "&action=delete' class='btn btn-danger'>
+                        <i class='fa-regular fa-trash'></i>
+                    </a>
+                </td> 
+            </tr>";
+        }
+       }
     }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -84,7 +106,7 @@
                         <div class="col-auto">
                             <div class="row">
                                 <div class="col-auto">
-                                    <a href="bookingCreate.php" class="btn btn-success"> 
+                                    <a href="booking.php" class="btn btn-success"> 
                                     Booking plaatsen
                                     </a>
                                 </div>
