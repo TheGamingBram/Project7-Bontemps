@@ -54,6 +54,11 @@ class Booking {
             }
         }
 
+        if(empty($reservations))
+        {
+            $reservations;
+        }
+
         return $reservations;
     }
 
