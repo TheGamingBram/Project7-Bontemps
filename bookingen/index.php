@@ -34,25 +34,28 @@
    $reservaties = Booking::select(null, $QueryBooking);
    
    $tableBooking = "";
-    foreach($reservaties as $reservatie)
-    {
-        // prettyprint($reservatie); 
-        $tableBooking .= 
-        "<tr> 
-            <td>" . $reservatie->quantity . "</td> 
-            <td>" . $reservatie->getCustomerName() . "</td>
-            <td>" . $reservatie->date . "</td> 
-            <td>" . $reservatie->tableId . "</td>
-            <td> 
-                <a href='?booking=" . $reservatie->id ."&action=edit' class='btn btn-warning'>
-                    <i class='fa-regular fa-pen'></i>
-                </a>
-                <a href='?booking=" . $reservatie->id . "&action=delete' class='btn btn-danger'>
-                    <i class='fa-regular fa-trash'></i>
-                </a>
-            </td> 
-        </tr>";
-    }
+
+   if($reservaties) {
+        foreach($reservaties as $reservatie)
+        {
+            // prettyprint($reservatie); 
+            $tableBooking .= 
+            "<tr> 
+                <td>" . $reservatie->quantity . "</td> 
+                <td>" . $reservatie->getCustomerName() . "</td>
+                <td>" . $reservatie->date . "</td> 
+                <td>" . $reservatie->tableId . "</td>
+                <td> 
+                    <a href='?booking=" . $reservatie->id ."&action=edit' class='btn btn-warning'>
+                        <i class='fa-regular fa-pen'></i>
+                    </a>
+                    <a href='?booking=" . $reservatie->id . "&action=delete' class='btn btn-danger'>
+                        <i class='fa-regular fa-trash'></i>
+                    </a>
+                </td> 
+            </tr>";
+        }
+   }
 
 
 
