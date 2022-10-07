@@ -4,8 +4,6 @@
     include('Booking.php');
     // include('../Assets/Checklogin.php');
 
-    prettyprint($_SESSION);
-
     // $_SESSION['userid'] = "5";
     $_SESSION['HumanClass'] = false;
     if(isset($_REQUEST['action']))
