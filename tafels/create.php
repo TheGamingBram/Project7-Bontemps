@@ -85,8 +85,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <input type="text" name="personen" class="form-control <?php echo (!empty($personen_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $personen; ?>">
                             <span class="invalid-feedback"><?php echo $personen_err;?></span>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="./" class="btn btn-secondary ml-2">Cancel</a>
+                        <input type="submit" class="btn btn-primary" value="Voeg toe">
+                        <a href="./" class="btn btn-secondary ml-2">Annuleer</a>
                     </form>
                 </div>
             </div>        
