@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="booking.php" method="post" autocomplete="off">
+                <form action="bookingCreate.php" method="post" autocomplete="off">
                     <div class="mb-3">
                         <label class="label" for="Datum">Datum</label>
                         <input type="datetime-local" placeholder="Datum" name="Datum" id="Datum" class="form-control" required>
