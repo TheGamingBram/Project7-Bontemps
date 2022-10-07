@@ -1,100 +1,100 @@
 <?php 
-    //session start
-    session_start();
+class Booking {
+    public $id;
+    public $date;
+    public $quantity;
+    public $customerId;
+    public $tableId;
 
-    //voegt de benodigde bestanden toe
-    include('../Assets/Config.php');
-    include('../Assets/Header.php');
-    // include('../header.php');
-    include('../Assets/Checklogin.php');
-
-    //zegt of het een medewerker of een klant
-
-    //checkt of je een klant of medewerkerbent
-    if(!$_SESSION['HumanClass'])
-    {
-        $inhoudtafel = '<input type="text" hidden value="0" name="TafelID" id="TafelID" class="form-control">';
-
-        $inhoudklant = '<input type="text" hidden value="'.$_SESSION['userid'].'" name="KlantID" id="KlantID" class="form-control">';
-    }else
-    {
-        $inhoudtafel = '<label class="label" for="Tafel">Tafel</label>';
-        $inhoudtafel .= '<input type="text" placeholder="Tafel" name="TafelID" id="TafelID" class="form-control" required>';
-
-        $inhoudklant = '<label class="label" for="KlantenNaam">Klant</label>';
-        $inhoudklant .= '<input type="text" placeholder="Klanten Naam" name="KlantenNaam" id="KlantenNaam" class="form-control" required>';
+    private static function con() {
+        return mysqli_connect('localhost','root','','bontemps');
     }
 
-    //voegt de booking toe aan de database
-	if(isset($_POST['toevoegen']))
-	{
-		$Datum = $_POST['Datum'];
-		$AantalPesoonen = $_POST['AantalPersoonen'];
-		$TafelID = $_POST['TafelID'];
+    public static function insert(array $values) {
+        $query = "INSERT INTO reserveringen (Datum, Aantal, Klanten_ID, Tafel_ID) VALUES (" . $values['date']. ", " . $values['quantity']. ", " . $values['customerId']. ", " . $values['tableId']. ");";
+        mysqli_query(self::con(), $query);
 
-        if(!$_SESSION['HumanClass'])
-        {
-		    $KlantID = $_POST['KlantID'];
-        }else
-        {
-		    $KlantenNaam = $_POST['KlantenNaam'];
-            $Queryklanten = "SELECT ID FROM klanten WHERE Naam = '$KlantenNaam'";
-            $resultklanten=$con->query($Queryklanten);
-            $varklanten = '';
-            if($stmt = mysqli_prepare($con, $Queryklanten)){
-               while($rowklanten = $resultklanten->fetch_assoc())
-               {
-                if($rowklanten != NULL)
+        $query = "SELECT * FROM reserveringen ORDER BY id DESC LIMIT 1;";
+        $result = self::con()->query($query);
+        
+        if(mysqli_prepare(self::con(), $query)) {
+            while($row = $result->fetch_assoc())
+            {
+                if($row != NULL)
                 {
-                    $KlantID = $rowklanten['ID'];
+                    $booking = Booking::set($row);
                 }
-               }
-              // prettyprint($KlantID);
             }
         }
 
-		$QueryBooking = "INSERT INTO reserveringen (Datum, Aantal, Klanten_ID, Tafel_ID) 
-				VALUES ('$Datum', '$AantalPesoonen', '$KlantID', '$TafelID');";
-			mysqli_query($con, $QueryBooking);
+        return $booking;
+    }
 
-            // prettyprint($QueryBooking);
-		    header("location: index.php");
-	}
-?>
+    public static function update(array $values, int $id) {
+        $query = "UPDATE reserveringen SET Datum=" . $values['date']. ", Aantal=" . $values['quantity']. ", Klanten_ID=" . $values['customerId']. ", Tafel_ID=" . $values['tableId']. ", WHERE id='$id'";
+        mysqli_query(self::con(), $query);
+
+        return Booking::select($id, null);
+    }
+
+    public static function select($id, $query) {
+        if(!$query && $id) {
+            $query = "SELECT * FROM reserveringen WHERE ID = '$id'";
+        }
+
+        $result = self::con()->query($query);
+        
+        if(mysqli_prepare(self::con(), $query)) {
+            while($row = $result->fetch_assoc())
+            {
+                if($row != NULL)
+                {
+                    $reservations[] = Booking::set($row);
+                }
+            }
+        }
+
+        return $reservations;
+    }
+
+    public function getCustomerName() {
+
+        $query = "SELECT Naam FROM klanten WHERE ID = '$this->customerId'";
+        $result = self::con()->query($query);
+        
+        if(mysqli_prepare(self::con(), $query)) {
+            while($row = $result->fetch_assoc())
+            {
+                if($row != NULL)
+                {
+                    $customername = $row['Naam'];
+                }
+            }
+        }
+
+        return $customername;
+    }
+
+    public static function delete(int $id) {
+        $query = "DELETE FROM reserveringen WHERE ID = '$id'";
+
+        return self::con()->query($query);
+    }
+
+    private static function set(array $row) {
+        $booking = new Booking;
+
+        $booking->id = $row['ID'];
+        $booking->date = $row['Datum'];
+        $booking->quantity = $row['Aantal'];
+        $booking->customerId = $row['Klanten_ID'];
+        $booking->tableId = $row['Tafel_ID'];
+
+        return $booking;
+    }
+}
 
 
-<body>
-    <div class="container">
-        <div class="card my-4">
-            <div class="card-header">
-                <div class="card-title">
-                    <h1>
-                        Booking plaatsen
-                    </h1>
-                </div>
-            </div>
-            <div class="card-body">
-                <form action="booking.php" method="post" autocomplete="off">
-                    <div class="mb-3">
-                        <label class="label" for="Datum">Datum</label>
-                        <input type="datetime-local" placeholder="Datum" name="Datum" id="Datum" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="label" for="AantalPersoonen">Aantal Persoonen</label>
-                        <input type="AantalPersoonen" placeholder="Aantal Persoonen" name="AantalPersoonen" id="AantalPersoonen" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <?php echo $inhoudtafel;?>
-                    </div>
-                    <div class="mb-3">
-                        <?php echo $inhoudklant;?>
-                    </div>
-                    <div class="mb-3">
-                        <input type="submit" value="Maak Boeking" name="toevoegen" class="btn btn-success">
-                        <input type="submit" value="Annuleer" name="Annuleer" class="btn btn-danger" onClick="document.location.href='index.php'">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> 
-</body>
+
+
+
