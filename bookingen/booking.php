@@ -27,7 +27,7 @@ class Booking {
             }
         }
 
-        return $booking;
+        return isset($booking) ? $booking : null;
     }
 
     public static function update(array $values, int $id) {
@@ -54,7 +54,7 @@ class Booking {
             }
         }
 
-        return $reservations;
+        return isset($reservations) ? $reservations : null;
     }
 
     public function getCustomerName() {
@@ -72,7 +72,7 @@ class Booking {
             }
         }
 
-        return $customername;
+        return isset($customername) ? $customername : null;
     }
 
     public static function delete(int $id) {
