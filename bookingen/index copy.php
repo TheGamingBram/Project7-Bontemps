@@ -1,15 +1,9 @@
 <?php 
-    //session start
-    session_start();
-
     //voegt de benodigde bestanden toe
-    // include('../Assets/Config.php');
-    include('Table.php');
-    include('../Assets/Header.php');
-    // include('../header.php');
+    include('../Assets/Config.php');
     include('../Assets/Checklogin.php');
-
-    // $_SESSION['userid'] = "5";
+    include('Booking.php');
+    
     $_SESSION['HumanClass'] = false;
     if(isset($_REQUEST['action']))
     {
