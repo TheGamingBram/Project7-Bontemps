@@ -27,60 +27,199 @@
         echo '<script>alert("'.$msg.'")</script>';
     }
 
+    $username       = $password         = $telephone    = $email        = $adress       = $place        = $postalcode       = "";
+    $username_err   = $password_err     = $tel_err      = $email_err    = $adress_err   = $place_err    = $postalcode_err   = "";
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if(isset($_POST['Type'])){
+            if($_POST['Type'] == "Regist"){
+                //Register Code
+                
+                //Name Checker!
+                if(empty(trim($_POST["name"]))){
+                    $username_err = "Vul aub een naam in";
+                }elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["name"]))){
+                    $username_err = "Namen kunnen alleen maar bestaan uit letters, cijfers!";
+                }else{
+                    $username = trim($_POST["name"]);
+                }
+    
+                //EMAIL Checker!
+                if(empty(trim($_POST["Email"]))){
+                    $email_err = "Please enter a email.";
+                } else{
+                    // Prepare a select statement
+                    $sql = "SELECT id FROM klanten WHERE Email = ?";
+                    
+                    if($stmt = mysqli_prepare($link, $sql)){
+                        // Bind variables to the prepared statement as parameters
+                        mysqli_stmt_bind_param($stmt, "s", $param_email);
+                        
+                        // Set parameters
+                        $param_email = trim($_POST["Email"]);
+                        
+                        // Attempt to execute the prepared statement
+                        if(mysqli_stmt_execute($stmt)){
+                            /* store result */
+                            mysqli_stmt_store_result($stmt);
+    
+                            if(mysqli_stmt_num_rows($stmt) == 1){
+                                $email_err = "This email is already taken.";
+                            } else{
+                                $email = $_POST["Email"];
+                            }
+                        } else{
+                            $email_err = "Oops! Something went wrong. Please try again later.";
+                        }
+            
+                        // Close statement
+                        mysqli_stmt_close($stmt);
+                    }
+                }
+    
+                //Check Password!
+                if(empty(trim($_POST["Password"]))){
+                    $password_err = "Please enter a password.";     
+                } elseif(strlen(trim($_POST["Password"])) < 6){
+                    $password_err = "Password must have atleast 6 characters.";
+                } else{
+                    $password = trim($_POST["Password"]);
+                }
+    
+                //CHECK Phone Nr!
+                if(empty(trim($_POST["phone"]))){
+                    $tel_err = "Please enter a phone number.";
+                }else{
+                    $telephone = trim($_POST["phone"]);
+                }
+    
+                //CHECK Adress!
+                if(empty(trim($_POST["Adress"]))){
+                    $adress_err = "Please enter a Adress.";
+                }else{
+                    $adress = trim($_POST["Adress"]);
+                }
+    
+                //CHECK Postcode!
+                if(empty(trim($_POST["Postcode"]))){
+                    $postalcode_err = "Please enter";
+                }else{
+                    $postalcode = trim($_POST["Postcode"]);
+                }
+    
+                //CHECK Plaats!
+                if(empty(trim($_POST["Plaats"]))){
+                    $place_err = "Please enter";
+                }else{
+                    $place = trim($_POST["Plaats"]);
+                }
+    
+    
+                
+                if(empty($username_err) && empty($password_err) && empty($tel_err) && empty($email_err) && empty($adress_err) && empty($place_err) && empty($postalcode_err)){
+                    
+                    $sql = "INSERT INTO `klanten` (`ID`, `Naam`, `Email`, `Wachtwoord`, `Telefoonnummer`, `Adres`, `Postcode`, `Plaats`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
+                    if($stmt = mysqli_prepare($link, $sql)){
+                        mysqli_stmt_bind_param($stmt, "sssssss", $param_username, $param_email, $param_password, $param_tel, $param_adres, $param_postcode, $param_plaats);
+                        
+                        $param_username     = $username;
+                        $param_email        = $email;
+                        $param_password     = password_hash($password, PASSWORD_DEFAULT);
+                        $param_tel          = $telephone;
+                        $param_adres        = $adress;
+                        $param_postcode     = $postalcode;
+                        $param_plaats       = $place;
+    
+                        if(mysqli_stmt_execute($stmt)){
+                            $sql_GetUID = "SELECT `ID` FROM `klanten` WHERE `Email` = ?";
+                            
+                            if($stmt_USERID = mysqli_prepare($link, $sql_GetUID)){
+                                mysqli_stmt_bind_param($stmt_USERID, "s", $email);
+                                if(mysqli_stmt_execute($stmt_USERID)){
+                                    mysqli_stmt_store_result($stmt_USERID);
+                                    mysqli_stmt_bind_result($stmt_USERID, $id);
+                                    if(mysqli_stmt_fetch($stmt_USERID)){
+                                        $_SESSION["userid"] = $id;
+                                        $_SESSION["login"] = "true";
+                                        mysqli_stmt_close($stmt_USERID);
+                                    }   
+                                }
+                            }
+                            
+                        }else{
+                            PHP_Allert("Oops! Something went wrong. Please try again later.");
+                        }
+    
+                        // Close statement
+                        mysqli_stmt_close($stmt);
+                    }
+                    else {
+                        if(!empty($username_err)){
+                            PHP_Allert($username_err);
+                        }
+                        if(!empty($password_err)){
+                            PHP_Allert($password_err);
+                        }
+                        if(!empty($tel_err)){
+                            PHP_Allert($tel_err);
+                        }
+                        if(!empty($email_err)){
+                            PHP_Allert($email_err);
+                        }
+                        if(!empty($adress_err)){
+                            PHP_Allert($adress_err);
+                        }
+                        if(!empty($postalcode_err)){
+                            PHP_Allert($postalcode_err);
+                        }
+                        if(!empty($place_err)){
+                            PHP_Allert($place_err);
+                        }
+                    }
+                }
+            }
+            elseif ($_POST['Type'] == "Login") {
+                if(empty(trim($_POST["Email"]))){
+                    $email_err = "Please enter username.";
+                } else{
+                    $email = trim($_POST["Email"]);
+                }
+                if(empty(trim($_POST["Password"]))){
+                    $password_err = "Please enter your password.";
+                } else{
+                    $password = trim($_POST["Password"]);
+                }
+    
+                if(empty($email_err) && empty($password_err)){
+                    $sql = "SELECT ID, Wachtwoord FROM klanten WHERE Email = ?";
+                    if($stmt = mysqli_prepare($link, $sql)){
+                        mysqli_stmt_bind_param($stmt, "s", $param_email);
+                        $param_email = $email;
+                        if(mysqli_stmt_execute($stmt)){
+                            mysqli_stmt_store_result($stmt);
+                            if(mysqli_stmt_num_rows($stmt) == 1){
+                                mysqli_stmt_bind_result($stmt, $id, $hashed_password);
+                                if(mysqli_stmt_fetch($stmt)){
+                                    if(password_verify($password, $hashed_password)){
+                                        $_SESSION["userid"] = $id;
+                                        $_SESSION["login"] = "true";
+                                    }else{
+                                        PHP_Allert("Invalid username or password.");
+                                    }
+                                }
+                            }else {
+                                PHP_Allert("Invalid username or password.");
+                            }
+                        }
+                    }
+                }
+    
+            }elseif ($_POST['Type'] == "Logout") {
+                session_destroy();
+            }else{
+
+            }
+        }
+    }
     
 ?>
-
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <title>Bon Temps</title>
-
-    <link rel="icon" type="image/png" href="./Assets/img/bontempslogo.png">
-
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap" rel="stylesheet"> 
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Links for DataTables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-    <script   script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-
-    <link href="Assets/css/style.css" rel="stylesheet">
-</head>
-
-<div class="container-fluid fixed-top px-0 wow fadeIn bg-white shadow" data-wow-delay="0.1s">
-        <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-            <a href="./" class="navbar-brand ms-4 ms-lg-0">
-            <div class="header-img"></div>
-            </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="about.html" class="nav-item nav-link">Over ons</a>
-                    <a href="product.html" class="nav-item nav-link">Product</a>
-                    <a href="contact.php" class="nav-item nav-link">Contact gegevens</a>
-                </div>
-
-                <div class="d-none d-lg-flex ms-2">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <div class="fa fa-user text-body"></div>
-                        </a>
-                        <div class="dropdown-menu m-0">
-                            <a href="" class="dropdown-item">Inloggen</a>
-                            <a href="" class="dropdown-item">Registeren</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-</div>
-
-<div style="margin-top: 150px"></div>

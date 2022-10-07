@@ -55,6 +55,8 @@
             // prettyprint($QueryBooking);
 		    header("location: index.php");
 	}
+
+    include("../Assets/Header.php"); //connection Styling
 ?>
 
 

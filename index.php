@@ -1,5 +1,6 @@
 <?php
-    include("./Assets/config.php"); //connection to database and some test functions
+    include("./Assets/Config.php"); //connection to database and some test functions
+    include("./Assets/Header.php"); //connection Styling
 ?>
 
 <body>
