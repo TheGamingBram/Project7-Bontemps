@@ -47,8 +47,12 @@
                         
                         if(!isset($_SESSION['login'])){
                             echo "
-                            <button data-bs-target='#exampleModalToggle' data-bs-toggle='modal' class='dropdown-item'>Inloggen</button>
-                            <button data-bs-target='#exampleModalToggle2' data-bs-toggle='modal' class='dropdown-item'>Registreren</button>
+                                <button data-bs-target='#exampleModalToggle' data-bs-toggle='modal' class='dropdown-item'>Inloggen</button>
+                                <button data-bs-target='#exampleModalToggle2' data-bs-toggle='modal' class='dropdown-item'>Registreren</button>
+                            ";
+                        }else{
+                            echo "
+                                <a href='?Logout=logout' style='text-decoration: none;' ><button class='dropdown-item'>Uitloggen</button></a>
                             ";
                         }
 
