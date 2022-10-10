@@ -222,4 +222,11 @@
         }
     }
     
+
+    if(isset($_GET['Logout'])){
+        if($_GET['Logout'] == "logout"){
+            session_destroy();
+            header("location: index.php");
+        }
+    }
 ?>
