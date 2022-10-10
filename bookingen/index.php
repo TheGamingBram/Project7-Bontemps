@@ -1,10 +1,9 @@
 <?php 
     //voegt de benodigde bestanden toe
     include('../Assets/Config.php');
+    include('../Assets/Checklogin.php');
     include('Booking.php');
-    // include('../Assets/Checklogin.php');
 
-    // $_SESSION['userid'] = "5";
     $_SESSION['HumanClass'] = false;
     if(isset($_REQUEST['action']))
     {

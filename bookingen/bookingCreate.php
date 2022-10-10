@@ -2,6 +2,7 @@
     //voegt de benodigde bestanden toe
     include('../Assets/Config.php');
     include('../Assets/Checklogin.php');
+    include('Booking.php');
 
     //zegt of het een medewerker of een klant
 
@@ -33,27 +34,14 @@
         }else
         {
 		    $KlantenNaam = $_POST['KlantenNaam'];
-            $Queryklanten = "SELECT ID FROM klanten WHERE Naam = '$KlantenNaam'";
-            $resultklanten=$con->query($Queryklanten);
-            $varklanten = '';
-            if($stmt = mysqli_prepare($con, $Queryklanten)){
-               while($rowklanten = $resultklanten->fetch_assoc())
-               {
-                if($rowklanten != NULL)
-                {
-                    $KlantID = $rowklanten['ID'];
-                }
-               }
-              // prettyprint($KlantID);
-            }
+            $KlantID = Booking::getCustomerID($KlantenNaam);
         }
 
-		$QueryBooking = "INSERT INTO reserveringen (Datum, Aantal, Klanten_ID, Tafel_ID) 
-				VALUES ('$Datum', '$AantalPesoonen', '$KlantID', '$TafelID');";
-			mysqli_query($con, $QueryBooking);
+        $arrayBooking = ['date' => $Datum, 'quantity' => $AantalPesoonen, 'customerId' => $KlantID, 'tableId' => $TafelID];
+        Booking::insert($arrayBooking);
 
-            // prettyprint($QueryBooking);
-		    header("location: index.php");
+        // prettyprint($arrayBooking);
+        header("location: index.php");
 	}
 
     include("../Assets/Header.php"); //connection Styling
