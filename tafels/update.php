@@ -1,15 +1,15 @@
 <?php
 // Include config file
-require_once "index.php";
+include("../Assets/config.php"); //connection to database and some test functions
  
 // Define variables and initialize with empty values
 $naam = $personen = "";
 $naam_err = $personen_err = "";
  
 // Processing form data when form is submitted
-if(isset($_POST["id"]) && !empty($_POST["id"])){
+if(isset($_POST["ID"]) && !empty($_POST["ID"])){
     // Get hidden input value
-    $id = $_POST["id"];
+    $id = $_POST["ID"];
     
     // Validate naam
     $input_naam = trim($_POST["naam"]);
@@ -62,12 +62,12 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     mysqli_close($link);
 } else{
     // Check existence of id parameter before processing further
-    if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
+    if(isset($_GET["ID"]) && !empty(trim($_GET["ID"]))){
         // Get URL parameter
-        $id =  trim($_GET["id"]);
+        $id =  trim($_GET["ID"]);
         
         // Prepare a select statement
-        $sql = "SELECT * FROM tafels WHERE id = ?";
+        $sql = "SELECT * FROM tafels WHERE ID = ?";
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -85,9 +85,8 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                     
                     // Retrieve individual field value
-                    $name = $row["name"];
-                    $address = $row["address"];
-                    $salary = $row["salary"];
+                    $naam = $row["Naam"];
+                    $personen = $row["Personen"];
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
@@ -116,7 +115,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Record</title>
+    <title>Bijwerken</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .wrapper{
@@ -130,27 +129,21 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5">Update Record</h2>
-                    <p>Please edit the input values and submit to update the employee record.</p>
+                    <h2 class="mt-5">Bijwerken</h2>
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err;?></span>
+                            <label>Naam</label>
+                            <input type="text" name="naam" class="form-control <?php echo (!empty($naam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $naam; ?>">
+                            <span class="invalid-feedback"><?php echo $naam_err;?></span>
                         </div>
                         <div class="form-group">
-                            <label>Address</label>
-                            <textarea name="address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>"><?php echo $address; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $address_err;?></span>
+                            <label>Personen</label>
+                            <input type="text" name="personen" class="form-control <?php echo (!empty($personen_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $personen; ?>">
+                            <span class="invalid-feedback"><?php echo $personen_err;?></span>
                         </div>
-                        <div class="form-group">
-                            <label>Salary</label>
-                            <input type="text" name="salary" class="form-control <?php echo (!empty($salary_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $salary; ?>">
-                            <span class="invalid-feedback"><?php echo $salary_err;?></span>
-                        </div>
-                        <input type="hidden" name="id" value="<?php echo $id; ?>"/>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <input type="hidden" name="ID" value="<?php echo $id; ?>"/>
+                        <input type="submit" class="btn btn-primary" value="Verstuur">
+                        <a href="index.php" class="btn btn-secondary ml-2">Annuleer</a>
                     </form>
                 </div>
             </div>        
