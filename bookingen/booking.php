@@ -11,7 +11,12 @@ class Booking {
     }
 
     public static function insert(array $values) {
-        $query = "INSERT INTO reserveringen (Datum, Aantal, Klanten_ID, Tafel_ID) VALUES (" . $values['date']. ", " . $values['quantity']. ", " . $values['customerId']. ", " . $values['tableId']. ");";
+        $date = $values['date'];
+        $quantity = $values['quantity'];
+        $customerId = $values['customerId'];
+        $tableId = $values['tableId'];
+
+        $query = "INSERT INTO reserveringen (Datum, Aantal, Klanten_ID, Tafel_ID) VALUES ('$date', '$quantity', '$customerId', '$tableId');";
         mysqli_query(self::con(), $query);
 
         $query = "SELECT * FROM reserveringen ORDER BY id DESC LIMIT 1;";
@@ -31,7 +36,13 @@ class Booking {
     }
 
     public static function update(array $values, int $id) {
-        $query = "UPDATE reserveringen SET Datum=" . $values['date']. ", Aantal=" . $values['quantity']. ", Klanten_ID=" . $values['customerId']. ", Tafel_ID=" . $values['tableId']. ", WHERE id='$id'";
+        $date = $values['date'];
+        $quantity = $values['quantity'];
+        $customerId = $values['customerId'];
+        $tableId = $values['tableId'];
+
+        $query = "UPDATE reserveringen SET Datum='$date', Aantal='$quantity', Klanten_ID='$customerId', Tafel_ID='$tableId', WHERE id='$id'";
+        
         mysqli_query(self::con(), $query);
 
         return Booking::select($id, null);
@@ -73,6 +84,24 @@ class Booking {
         }
 
         return isset($customername) ? $customername : null;
+    }
+
+    public static function getCustomerID(string $customerName) {
+
+        $query = "SELECT ID FROM klanten WHERE Naam = '$customerName'";
+        $result = self::con()->query($query);
+        
+        if(mysqli_prepare(self::con(), $query)) {
+            while($row = $result->fetch_assoc())
+            {
+                if($row != NULL)
+                {
+                    $customerID = $row['ID'];
+                }
+            }
+        }
+
+        return isset($customerID) ? $customerID : null;
     }
 
     public static function delete(int $id) {

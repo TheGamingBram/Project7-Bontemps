@@ -1,10 +1,9 @@
 <?php 
     //voegt de benodigde bestanden toe
     include('../Assets/Config.php');
+    include('../Assets/Checklogin.php');
     include('Booking.php');
-    // include('../Assets/Checklogin.php');
 
-    // $_SESSION['userid'] = "5";
     $_SESSION['HumanClass'] = false;
     if(isset($_REQUEST['action']))
     {
@@ -36,27 +35,33 @@
    $tableBooking = "";
 
    if($reservaties) {
+        $dateToday = date('Y-m-d H:i:s');
         foreach($reservaties as $reservatie)
         {
-            // prettyprint($reservatie); 
+            $addDelete = "";
+            $sortDate = strtotime($reservatie->date);
+            if($reservatie->date > $dateToday)
+            {
+                $addDelete = "  <a href='?booking=" . $reservatie->id ."&action=edit' class='btn btn-warning'>
+                                    <i class='fa-regular fa-pen'></i>
+                                </a>
+                                <a href='?booking=" . $reservatie->id . "&action=delete' class='btn btn-danger'>
+                                    <i class='fa-regular fa-trash'></i>
+                                </a>";
+            }
+
             $tableBooking .= 
             "<tr> 
                 <td>" . $reservatie->quantity . "</td> 
                 <td>" . $reservatie->getCustomerName() . "</td>
-                <td>" . $reservatie->date . "</td> 
-                <td>" . $reservatie->tableId . "</td>
+                <td>" . $reservatie->tableId . "</td> 
+                <td data-sort='". $sortDate ."'>" . $reservatie->date . "</td>
                 <td> 
-                    <a href='?booking=" . $reservatie->id ."&action=edit' class='btn btn-warning'>
-                        <i class='fa-regular fa-pen'></i>
-                    </a>
-                    <a href='?booking=" . $reservatie->id . "&action=delete' class='btn btn-danger'>
-                        <i class='fa-regular fa-trash'></i>
-                    </a>
+                    ".$addDelete."
                 </td> 
             </tr>";
         }
    }
-
 
    include("../Assets/Header.php"); //connection Styling
 ?>
@@ -111,9 +116,9 @@
 <script>
     $(document).ready( function () {
         $('#bookingenTable').DataTable({
-            "ordering": false,
             "info":     false,
             "bLengthChange": false,
+            "order": [[3, 'desc']],
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/nl-NL.json"
             }
