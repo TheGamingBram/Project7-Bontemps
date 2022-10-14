@@ -52,6 +52,7 @@
                             ";
                         }else{
                             echo "
+                                <a href='AcountOverzicht.php' style='text-decoration: none;' ><button class='dropdown-item'>Mijn Account</button></a>
                                 <a href='?Logout=logout' style='text-decoration: none;' ><button class='dropdown-item'>Uitloggen</button></a>
                             ";
                         }
