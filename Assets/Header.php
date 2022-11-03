@@ -52,6 +52,7 @@
                             ";
                         }else{
                             echo "
+                                <a href='AcountOverzicht.php' style='text-decoration: none;' ><button class='dropdown-item'>Mijn Account</button></a>
                                 <a href='?Logout=logout' style='text-decoration: none;' ><button class='dropdown-item'>Uitloggen</button></a>
                             ";
                         }
@@ -78,17 +79,17 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Email:</label>
-                    <input type="email"  required name="Email" class="form-control"/>
+                    <input type="email" placeholder="email@email.com" autocomplete="off" required name="Email" class="form-control"/>
                 </div>
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Password:</label>
-                    <input type="password" required name="Password" class="form-control" />
+                    <input type="password" placeholder="**********" required name="Password" class="form-control" />
                 </div>
                 <input type="hidden" value="Login" name="Type">
             </div>
             <div class="modal-footer">
-                <button type="submit" value="Submit" name="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" value="Submit" name="submit" class="btn btn-primary">Login</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
             </div>
         </form>
       </div>
@@ -105,45 +106,45 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="Name-name" class="col-form-label">Naam:</label>
-                    <input type="text" required name="name" class="form-control" />
+                    <input type="text" placeholder="Gebruikers naam" required name="name" class="form-control" />
                 </div>
                 <div class="mb-3">
                     <label for="email-name" class="col-form-label">Email:</label>
-                    <input type="email" required name="Email" class="form-control" />
+                    <input type="email" placeholder="Email@email.com" required name="Email" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label for="email-name" class="col-form-label">Password:</label>
-                    <input type="password" required name="Password" class="form-control" />
+                    <label for="email-name" class="col-form-label">Wachtwoord:</label>
+                    <input type="password" placeholder="***********" required name="Password" class="form-control" />
                 </div>
                 <div class="mb-3">
                     <label for="tel-name" class="col-form-label">Telefoonnummer:</label>
-                    <input type="tel" required name="phone" pattern="[0-9]{10}" class="form-control" />
+                    <input type="tel" placeholder="0631000000" required name="phone" pattern="[0-9]{10}" class="form-control" />
                 </div>
                 <div class="row justify-content-center align-items-center g-2">
                     <div class="col">
                         <div class="mb-3">
                             <label for="email-name" class="col-form-label">Adress:</label>
-                            <input type="text" class="form-control" required name="Adress"/>
+                            <input type="text" placeholder="Straatnaam 01" class="form-control" required name="Adress"/>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label for="email-name" class="col-form-label">Postcode:</label>
-                            <input type="text" class="form-control" required name="Postcode" pattern="[0-9]{4}[A-Z]{2}"/>
+                            <input type="text" placeholder="1111AA" class="form-control" required name="Postcode" pattern="[0-9]{4}[A-Z]{2}"/>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label for="email-name" class="col-form-label">Plaats:</label>
-                            <input type="text" class="form-control" required name="Plaats"/>
+                            <input type="text" placeholder="Plaatsnaam" class="form-control" required name="Plaats"/>
                         </div>
                     </div>
                 </div>
                 <input type="hidden" value="Regist" name="Type">
             </div>
             <div class="modal-footer">
-                <button type="submit" value="Submit" name="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" value="Submit" name="submit" class="btn btn-primary">Registreer</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluiten</button>
             </div>
         </form>
       </div>

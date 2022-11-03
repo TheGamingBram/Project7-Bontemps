@@ -60,6 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Close connection
     mysqli_close($link);
 }
+include("../Assets/header.php"); //insert to bootstrap and other java scripts
 ?>
  
 <!DOCTYPE html>
