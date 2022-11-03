@@ -5,6 +5,7 @@
     include('Booking.php');
 
     $_SESSION['HumanClass'] = false;
+
     if(isset($_REQUEST['action']))
     {
         if($_REQUEST['action'] == "edit")
