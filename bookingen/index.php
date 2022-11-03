@@ -43,10 +43,11 @@
             $sortDate = strtotime($reservatie->date);
             if($reservatie->date > $dateToday)
             {
-                $addDelete = "  <a href='?booking=" . $reservatie->id ."&action=edit' class='btn btn-warning'>
-                                    <i class='fa-regular fa-pen'></i>
-                                </a>
-                                <a href='?booking=" . $reservatie->id . "&action=delete' class='btn btn-danger'>
+                //<a href='?booking=" . $reservatie->id ."&action=edit' class='btn btn-warning'>
+                //  <i class='fa-regular fa-pen'></i>
+                //</a>
+                
+                $addDelete = "  <a href='?booking=" . $reservatie->id . "&action=delete' class='btn btn-danger'>
                                     <i class='fa-regular fa-trash'></i>
                                 </a>";
             }
